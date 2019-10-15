@@ -159,6 +159,7 @@ while getopts ":celLzusop:dw:r:t:g:m:" opt; do
 	R)
 		# Include release version on asset zip file name
 		include_release_version="true"
+		;;
 	s)
 		# Create a nolib package.
 		nolib="true"
