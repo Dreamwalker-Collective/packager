@@ -107,7 +107,7 @@ usage() {
 	echo "  -L               Only do @localization@ keyword replacement (skip upload to CurseForge)." >&2
 	echo "  -o               Keep existing package directory, overwriting its contents." >&2
 	echo "  -R release-ver	 Include release version in zip file name." >&2
-        echo "  -s               Create a stripped-down \"nolib\" package." >&2
+	echo "  -s               Create a stripped-down \"nolib\" package." >&2
 	echo "  -u               Use Unix line-endings." >&2
 	echo "  -z               Skip zip file creation." >&2
 	echo "  -t topdir        Set top-level directory of checkout." >&2
@@ -1974,18 +1974,20 @@ if [ -z "$skip_zipfile" ]; then
 		# if it's a classic build, and classic isn't in the name, append it for clarity
 		classic_tag="-classic"
 	fi
+
 	release_version=
 	if [ -z "$include_release_version" ]; then
-		release_version="${project_version}"
+		release_version="-$project_version"
 	fi
 
 	echo "Release version ${release_version}"
+
 	archive_version="$project_version"
-	archive_name="$archive_package_name-$release_version$classic_tag.zip"
+	archive_name="$archive_package_name$release_version$classic_tag.zip"
 	archive="$releasedir/$archive_name"
 
 	nolib_archive_version="$release_version-nolib"
-	nolib_archive_name="$archive_package_name-$nolib_archive_version$classic_tag.zip"
+	nolib_archive_name="$archive_package_name$nolib_archive_version$classic_tag.zip"
 	nolib_archive="$releasedir/$nolib_archive_name"
 
 	if [ -n "$nolib" ]; then
