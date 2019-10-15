@@ -79,6 +79,7 @@ skip_zipfile=
 skip_upload=
 skip_cf_upload=
 pkgmeta_file=
+include_release_version=
 
 # Game versions for uploading
 game_version=
@@ -105,7 +106,8 @@ usage() {
 	echo "  -l               Skip @localization@ keyword replacement." >&2
 	echo "  -L               Only do @localization@ keyword replacement (skip upload to CurseForge)." >&2
 	echo "  -o               Keep existing package directory, overwriting its contents." >&2
-	echo "  -s               Create a stripped-down \"nolib\" package." >&2
+	echo "  -R release-version		 Include release version in zip file name." >&2
+        echo "  -s               Create a stripped-down \"nolib\" package." >&2
 	echo "  -u               Use Unix line-endings." >&2
 	echo "  -z               Skip zip file creation." >&2
 	echo "  -t topdir        Set top-level directory of checkout." >&2
@@ -154,6 +156,9 @@ while getopts ":celLzusop:dw:r:t:g:m:" opt; do
 		# Set the release directory to a non-default value.
 		releasedir="$OPTARG"
 		;;
+	R)
+		# Include release version on asset zip file name
+		include_release_version="true"
 	s)
 		# Create a nolib package.
 		nolib="true"
@@ -1968,12 +1973,16 @@ if [ -z "$skip_zipfile" ]; then
 		# if it's a classic build, and classic isn't in the name, append it for clarity
 		classic_tag="-classic"
 	fi
+	release_version=
+	if [ -z "$include_release_version" ]; then
+		release_version="${project_version}"
+	fi
 
 	archive_version="$project_version"
-	archive_name="$archive_package_name-$project_version$classic_tag.zip"
+	archive_name="$archive_package_name-$release_version$classic_tag.zip"
 	archive="$releasedir/$archive_name"
 
-	nolib_archive_version="$project_version-nolib"
+	nolib_archive_version="$release_version-nolib"
 	nolib_archive_name="$archive_package_name-$nolib_archive_version$classic_tag.zip"
 	nolib_archive="$releasedir/$nolib_archive_name"
 
