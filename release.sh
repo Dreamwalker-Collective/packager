@@ -1975,18 +1975,18 @@ if [ -z "$skip_zipfile" ]; then
 		classic_tag="-classic"
 	fi
 
-	release_version=
-	if [ -z "$include_release_version" ]; then
-		release_version="-$project_version"
+	release_tag=
+	if [ -n "$include_release_version" ]; then
+		release_tag="-$project_version"
 	fi
 
-	echo "Release version ${release_version}"
+	echo "Release tag ${release_tag}"
 
 	archive_version="$project_version"
-	archive_name="$archive_package_name$release_version$classic_tag.zip"
+	archive_name="$archive_package_name$release_tag$classic_tag.zip"
 	archive="$releasedir/$archive_name"
 
-	nolib_archive_version="$release_version-nolib"
+	nolib_archive_version="$release_tag-nolib"
 	nolib_archive_name="$archive_package_name$nolib_archive_version$classic_tag.zip"
 	nolib_archive="$releasedir/$nolib_archive_name"
 
