@@ -1976,10 +1976,10 @@ if [ -z "$skip_zipfile" ]; then
 	fi
 	release_version=
 	if [ -z "$include_release_version" ]; then
-        echo "Including release version"
 		release_version="${project_version}"
 	fi
 
+	echo "Release version ${release_version}"
 	archive_version="$project_version"
 	archive_name="$archive_package_name-$release_version$classic_tag.zip"
 	archive="$releasedir/$archive_name"
