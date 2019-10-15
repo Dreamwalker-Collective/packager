@@ -103,10 +103,10 @@ usage() {
 	echo "  -c               Skip copying files into the package directory." >&2
 	echo "  -d               Skip uploading." >&2
 	echo "  -e               Skip checkout of external repositories." >&2
+	echo "  -i release-ver	 Include release version in zip file name." >&2
 	echo "  -l               Skip @localization@ keyword replacement." >&2
 	echo "  -L               Only do @localization@ keyword replacement (skip upload to CurseForge)." >&2
 	echo "  -o               Keep existing package directory, overwriting its contents." >&2
-	echo "  -R release-ver	 Include release version in zip file name." >&2
 	echo "  -s               Create a stripped-down \"nolib\" package." >&2
 	echo "  -u               Use Unix line-endings." >&2
 	echo "  -z               Skip zip file creation." >&2
@@ -119,7 +119,7 @@ usage() {
 }
 
 OPTIND=1
-while getopts ":celLRzusop:dw:r:t:g:m:" opt; do
+while getopts ":celLizusop:dw:r:t:g:m:" opt; do
 	case $opt in
 	c)
 		# Skip copying files into the package directory.
@@ -156,7 +156,7 @@ while getopts ":celLRzusop:dw:r:t:g:m:" opt; do
 		# Set the release directory to a non-default value.
 		releasedir="$OPTARG"
 		;;
-	R)
+	i)
 		# Include release version on asset zip file name
 		include_release_version="true"
 		;;
